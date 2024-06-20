@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Title alt="Edit">Edit <code>src/App.js</code> and save to reload.</Title>
-        <Link href="https://reactjs.org" title="Click to visit" alt="reactjs.org">Link React</Link>
+        <Link href="https://reactjs.org" title="Click to visit" alt="reactjs.org" className="code" target="_top">Link React</Link>
       </header>
     </div>
   );
