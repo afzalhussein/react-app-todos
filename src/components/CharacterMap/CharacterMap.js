@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import PropTypes from "prop-types";
 import { TextContext } from "../../App";
 
-export default function CharacterMap({ show }) {
+function CharacterMap({ show }) {
   const { text } = useContext(TextContext);
   if (!show) {
     return null;
@@ -11,7 +11,7 @@ export default function CharacterMap({ show }) {
   return (
     <div>
       Character Map:{" "}
-      {itemize(text).map((character) => (
+      {itemizePerformance(text).map((character) => (
         <div key={character[0]}>
           {character[0]}: {character[1]}
         </div>
@@ -37,3 +37,19 @@ function itemize(text) {
     }, {});
   return Object.entries(letters).sort((a, b) => b[1] - a[1]);
 }
+
+function itemizePerformance(text) {
+  const letters = {};
+
+  for (const char of text) {
+    if (char !== " ") {
+      const letter = char.toLowerCase();
+      letters[letter] = (letters[letter] || 0) + 1;
+    }
+  }
+
+  return Object.entries(letters).sort((a, b) => b[1] - a[1]);
+}
+
+
+export default memo(CharacterMap);
