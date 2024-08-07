@@ -1,17 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-import Link from './components/Link';
-import Title from './components/Title';
+import "./App.css";
+import React, { createContext, useState, useMemo } from "react";
+import TextInformation from "./components/TextInformation/TextInformation";
+export const TextContext = createContext();
+TextContext.displayName = 'TextContext';
+
 
 function App() {
+  const [text, setText] = useState('');
+
+  // Memoize the context value
+  const contextValue = useMemo(() => ({ text }), [text]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Title alt="Edit">Edit <code>src/App.js</code> and save to reload.</Title>
-        <Link href="https://reactjs.org" title="Click to visit" alt="reactjs.org" className="code" target="_top">Link React</Link>
-      </header>
-    </div>
+    <TextContext.Provider value={contextValue}>
+      <div className="wrapper">
+        <label htmlFor="text">
+          Add your text Here:
+          <br />
+          <textarea
+            id="text"
+            name="text"
+            cols="100"
+            rows="10"
+            onChange={(e) => setText(e.target.value)}
+          >
+          </textarea>
+        </label>
+        <TextInformation />
+      </div>
+    </TextContext.Provider>
   );
 }
 
