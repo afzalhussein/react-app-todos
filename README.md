@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Note: in the branch code is used from https://www.digitalocean.com/community/tutorials/how-to-handle-dom-and-window-events-with-react
+
 ## Available Scripts
 
 In the project directory, you can run:
