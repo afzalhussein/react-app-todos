@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./FileNamer.css";
 
 function FileNamer() {
@@ -12,6 +12,22 @@ function FileNamer() {
     }
     setAlert(false);
   };
+
+  // Use useCallback to memoize the event handler function
+  const handleWindowClick = useCallback(() => setAlert(false), []);
+
+  useEffect(() => {
+    if ( alert ) {
+      window.addEventListener( "click", handleWindowClick );
+    }
+    // } else {
+    //   window.removeEventListener("click", handleWindowClick);
+    // }
+    // Clean up the event listener
+    return () => window.removeEventListener("click", handleWindowClick);
+  }, [alert, handleWindowClick, setAlert]);
+
+
   return (
     <div className="wrapper">
       <div className="preview">
@@ -23,33 +39,33 @@ function FileNamer() {
           <input
             autoComplete="off"
             name="name"
-            type="text"
-            onBlur={() => setAlert(false)}
             onChange={(event) => setName(event.target.value)}
-            onFocus={() => setAlert(true)}
           />
         </label>
         <div className="information-wrapper">
           <button
             className="information"
-            onClick={() => setAlert(true)}
+            onClick={ ( e ) => {
+              setAlert( !alert );
+              e.stopPropagation();
+            } }
             type="button"
           >
             more information
           </button>
-          {alert && (
+          {alert && 
             <div className="popup">
               <span role="img" aria-label="allowed">
                 ✅
-              </span>
-              alphanumeric characters are allowed
+              </span> 
+              Alphanumeric characters
               <br />
               <span role="img" aria-label="not allowed">
                 ⛔
               </span>
-              * is not allowed
+              *
             </div>
-          )}
+          }
         </div>
         <div>
           <button className="" onClick={validate}>
