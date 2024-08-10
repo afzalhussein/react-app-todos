@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import "./Product.css";
 
 const currencyOptions = {
@@ -24,16 +24,24 @@ const products = [
   },
 ];
 
+function cartReducer(state, product) {
+  return [...state, product];
+}
+
+function totalReducer(state, price) {
+  return state + price;
+}
+
 export default function Product() {
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [cart, setCart] = useReducer(cartReducer, []);
+  const [total, setTotal] = useReducer(totalReducer, 0);
 
   function getTotal(total) {
     return total.toLocaleString(undefined, currencyOptions);
   }
   function add(product) {
-    setCart((current) => [...current, product.name]);
-    setTotal((current) => current + product.price);
+    setCart(product.name);
+    setTotal(product.price);
   }
   return (
     <div className="wrapper">
@@ -46,7 +54,7 @@ export default function Product() {
               {product.emoji}
             </span>
           </div>
-          <button onClick={()=>add(product)}>Add</button>
+          <button onClick={() => add(product)}>Add</button>
           <button>Remove</button>
         </div>
       ))}
