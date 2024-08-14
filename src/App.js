@@ -1,5 +1,8 @@
 import React, { useState, useReducer, useCallback } from "react";
 import "./App.css";
+import InputField from "./components/InputField";
+import SelectField from "./components/SelectField";
+import CheckboxField from "./components/CheckboxField";
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -15,51 +18,6 @@ const formReducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-const InputField = ({
-  label,
-  name,
-  onChange,
-  value,
-  type = "text",
-  ...props
-}) => (
-  <label>
-    <p>{label}</p>
-    <input
-      name={name}
-      onChange={onChange}
-      value={value}
-      type={type}
-      {...props}
-    />
-  </label>
-);
-const SelectField = ({ label, name, value, onChange, options }) => (
-  <label>
-    <p>{label}</p>
-    <select name={name} value={value} onChange={onChange}>
-      <option value="">--Please choose an option--</option>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-  </label>
-);
-
-const CheckboxField = ({ label, name, checked, onChange, ...props }) => (
-  <label>
-    <p>{label}</p>
-    <input
-      type="checkbox"
-      name={name}
-      checked={checked}
-      onChange={onChange}
-      {...props}
-    />
-  </label>
-);
 
 function App() {
   const [formData, setFormData] = useReducer(formReducer, { count: 100 });
@@ -85,18 +43,7 @@ function App() {
   return (
     <div className="wrapper">
       <h1>How About Them Apples</h1>
-      {submitting && (
-        <div aria-live="polite">
-          You're submitting the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}>
-                <strong>{name}</strong>:{value.toString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {submitting && FormFeedback(formData)}
       <form onSubmit={handleSubmit}>
         <fieldset disabled={submitting}>
           <InputField
@@ -118,7 +65,6 @@ function App() {
               { label: "Honey Crisp", value: "honey-crisp" },
             ]}
           />
-
           <InputField
             label="Count"
             type="number"
@@ -137,8 +83,7 @@ function App() {
         </fieldset>
         <button type="submit" className="" disabled={submitting}>
           Submit
-        </button>
-        {" "}
+        </button>{" "}
         <button
           type="button"
           onClick={() => setFormData({ reset: true })}
@@ -152,3 +97,18 @@ function App() {
 }
 
 export default App;
+
+function FormFeedback(formData) {
+  return (
+    <div aria-live="polite">
+      You're submitting the following:
+      <ul>
+        {Object.entries(formData).map(([name, value]) => (
+          <li key={name}>
+            <strong>{name}</strong>:{value.toString()}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
