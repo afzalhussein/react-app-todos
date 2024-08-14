@@ -5,14 +5,17 @@ import PropTypes from "prop-types";
 export default function RiverInformation({ name }) {
   const [riverInformation, setRiverInformation] = useState();
   useEffect(() => {
+    let mounted = true;
     getRiverInformation(name).then((data) => {
-      setRiverInformation(data);
-    });
+      if (mounted) setRiverInformation(data);
+    } );
+    return () => {
+      mounted = false;
+    }
   }, [name]);
 
   return (
     <div className="wrapper">
-      <h1>World's Longest Rivers</h1>
       <h2>River Information</h2>
 
       <ul>
