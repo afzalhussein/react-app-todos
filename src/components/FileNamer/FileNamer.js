@@ -20,9 +20,6 @@ function FileNamer() {
     if ( alert ) {
       window.addEventListener( "click", handleWindowClick );
     }
-    // } else {
-    //   window.removeEventListener("click", handleWindowClick);
-    // }
     // Clean up the event listener
     return () => window.removeEventListener("click", handleWindowClick);
   }, [alert, handleWindowClick, setAlert]);
