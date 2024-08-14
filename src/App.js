@@ -1,16 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Link from './components/Link';
-import Title from './components/Title';
+import React, { useState } from "react";
+import "./App.css";
+import RiverInformation from "./components/RiverInformation/RiverInformation";
 
 function App() {
+  const [river, setRiver] = useState("nile");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Title alt="Edit">Edit <code>src/App.js</code> and save to reload.</Title>
-        <Link href="https://reactjs.org" title="Click to visit" alt="reactjs.org" className="code" target="_top">Link React</Link>
-      </header>
+    <div className="wrapper">
+      <button onClick={() => setRiver("nile")}>Nile</button>
+      <button onClick={() => setRiver("amazon")}>Amazon</button>
+      <button onClick={() => setRiver("yangtze")}>Yangtze</button>
+      <button onClick={() => setRiver("mississippi")}>Mississippi</button>
+      <RiverInformation name={river} />
     </div>
   );
 }
