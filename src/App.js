@@ -138,6 +138,7 @@ function App() {
         <button type="submit" className="" disabled={submitting}>
           Submit
         </button>
+        {" "}
         <button
           type="button"
           onClick={() => setFormData({ reset: true })}
