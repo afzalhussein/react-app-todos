@@ -74,6 +74,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 After running install, you can run json-server using `npm run api`. You can connect using port 3333 on localhost with `list` endpoint for *RESTFUL* operations.
 
 ```bash
+npm run api
 curl -d '{"item":"rice"}' -H 'Content-Type: application/json' -X POST http://localhost:3333/list
 or use POSTMAN with POST method and payload as above hitting: **http://localhost:3333/list **
 ```
+[Concept Source](https://www.digitalocean.com/community/tutorials/how-to-call-web-apis-with-the-useeffect-hook-in-react)
