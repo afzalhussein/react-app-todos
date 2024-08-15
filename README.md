@@ -75,6 +75,7 @@ After running install, you can run json-server using `npm run api`. You can conn
 
 ```bash
 npm run api
+curl http://localhost:3333/list
 curl -d '{"item":"rice"}' -H 'Content-Type: application/json' -X POST http://localhost:3333/list
 or use POSTMAN with POST method and payload as above hitting: **http://localhost:3333/list **
 ```
