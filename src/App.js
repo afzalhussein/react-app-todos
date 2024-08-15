@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getList, setItem } from "./services/list";
 
@@ -6,44 +6,47 @@ function App() {
   const [alert, setAlert] = useState(false);
   const [itemInput, setItemInput] = useState("");
   const [list, setList] = useState([]);
-  let mounted = useRef(true);
 
   useEffect(() => {
-    mounted.current = true;
-    if (list.length && !alert) {
-      return;
-    }
-    getList().then((items) => {
-      if (mounted.current) {
+    const fetchList = async () => {
+      try {
+        const items = await getList();
         setList(items);
+      } catch (error) {
+        console.error("Error fetching list:", error);
       }
-    });
-    return () => (mounted.current = false);
-  }, [alert, list, setList]);
+    };
+
+    if (list.length === 0 || alert) {
+      fetchList();
+    }
+  }, [alert, list.length]);
 
   useEffect(() => {
     if (alert) {
-      setTimeout(() => {
-        if (mounted.current) setAlert(false);
-      }, 1000);
+      const timeoutId = setTimeout(() => setAlert(false), 1000);
+      return () => clearTimeout(timeoutId);
     }
   }, [alert]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setItem(itemInput).then(() => {
-      if (mounted.current) {
-        setItemInput("");
-        setAlert(true);
-      }
-    });
+    if (!itemInput.trim()) return; // Prevent submitting empty or whitespace-only items
+
+    try {
+      await setItem(itemInput);
+      setItemInput("");
+      setAlert(true);
+    } catch (error) {
+      console.error("Error setting item:", error);
+    }
   };
 
   return (
     <>
       <h1>My Grocery List</h1>
       <ul>
-        {list?.map((item) => (
+        {list.map((item) => (
           <li key={item.item}>{item.item}</li>
         ))}
       </ul>
