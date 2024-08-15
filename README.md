@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Starting JSON-SERVER
+
+After running install, you can run json-server using `npm run api`. You can connect using port 3333 on localhost with `list` endpoint for *RESTFUL* operations.
+
+```bash
+curl -d '{"item":"rice"}' -H 'Content-Type: application/json' -X POST http://localhost:3333/list
+or use POSTMAN with POST method and payload as above hitting: **http://localhost:3333/list **
+```
