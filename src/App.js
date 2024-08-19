@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getList, setItem, deleteItem } from "./services/list";
+import List from "./components/List";
+import Alert from "./components/Alert";
+import ItemForm from "./components/ItemForm";
 
 function App() {
   const [alert, setAlert] = useState(false);
@@ -31,7 +34,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!itemInput.trim()) return; // Prevent submitting empty or whitespace-only items
+    if (!itemInput.trim()) return;
 
     try {
       await setItem(itemInput);
@@ -42,37 +45,25 @@ function App() {
     }
   };
 
-  const handleDelete = (e, item) => {
-    e.preventDefault();
-    console.log(item);
-    deleteItem(item.id)
-      .then((res) => setList(list.slice(list.indexOf(res.id),1)))
-      .catch((e) => console.log(e));
+  const handleDelete = async (itemId) => {
+    try {
+      await deleteItem(itemId);
+      setList(list.filter((item) => item.id !== itemId));
+    } catch (error) {
+      console.error("Error deleting list item:", error);
+    }
   };
+
   return (
     <>
       <h1>My Grocery List</h1>
-      <ul>
-        {list.map((item) => (
-          <li key={item.item} onClick={(e) => handleDelete(e, item)}>
-            {item.item}
-          </li>
-        ))}
-      </ul>
-      {alert && <h2>Submit Successful</h2>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>New Item</p>
-          <input
-            type="text"
-            onChange={(event) => setItemInput(event.target.value)}
-            value={itemInput}
-          />
-        </label>
-        <button type="submit" name="submit">
-          Submit
-        </button>
-      </form>
+      <List items={list} onDelete={handleDelete} />
+      {alert && <Alert message="Submit Successful" />}
+      <ItemForm
+        itemInput={itemInput}
+        onInputChange={setItemInput}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 }
