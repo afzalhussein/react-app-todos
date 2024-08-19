@@ -79,3 +79,16 @@ export async function setItem(item) {
     throw error;
   }
 }
+
+// Delete an item from the list
+export async function deleteItem(itemId) {
+  try {
+    const response = await apiRequest(`/${itemId}`, {
+      method: "DELETE",
+    });
+    return await handleResponse(response);
+  } catch (error) {
+    console.error("Error deleting list item:", error);
+    throw error;
+  }
+}

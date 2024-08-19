@@ -37,16 +37,8 @@
       "item": "yogurt"
     },
     {
-      "id": "06ce",
-      "item": "bread"
-    },
-    {
       "id": "de2c",
       "item": "detergent"
-    },
-    {
-      "id": "7157",
-      "item": "Mr Clean Eraser"
     },
     {
       "id": "dc2d",
@@ -61,12 +53,12 @@
       "item": "chicken breast"
     },
     {
-      "id": "2393",
-      "item": "steak beef"
-    },
-    {
       "id": "40df",
       "item": "ginger"
+    },
+    {
+      "id": "63e7",
+      "item": "mango"
     }
   ]
 }

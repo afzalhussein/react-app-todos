@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { getList, setItem } from "./services/list";
+import { getList, setItem, deleteItem } from "./services/list";
 
 function App() {
   const [alert, setAlert] = useState(false);
@@ -42,12 +42,21 @@ function App() {
     }
   };
 
+  const handleDelete = (e, item) => {
+    e.preventDefault();
+    console.log(item);
+    deleteItem(item.id)
+      .then((res) => setList(list.slice(list.indexOf(res.id),1)))
+      .catch((e) => console.log(e));
+  };
   return (
     <>
       <h1>My Grocery List</h1>
       <ul>
         {list.map((item) => (
-          <li key={item.item}>{item.item}</li>
+          <li key={item.item} onClick={(e) => handleDelete(e, item)}>
+            {item.item}
+          </li>
         ))}
       </ul>
       {alert && <h2>Submit Successful</h2>}
@@ -60,7 +69,9 @@ function App() {
             value={itemInput}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit" name="submit">
+          Submit
+        </button>
       </form>
     </>
   );
