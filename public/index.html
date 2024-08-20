@@ -24,10 +24,72 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Grocery Store Logo</title>
+    <style>
+      :root {
+        --gc-primary-color: #105028;
+        --gc-secondary-color: #ffffff;
+        --gc-alternate-primary-color: #072513;
+        --gc-alternate-secondary-color: #363636;
+        --gc-link-color: #197a3d;
+        --gc-link-visited: #21a552;
+        --gc-logo-color: #4CAF50;
+        --gc-logo-background: #f0f0f0;
+        --gc-logo-text-color:#333;
+      }
+      .logo {
+        font-family: 'Arial', sans-serif;
+        font-size: 36px;
+        font-weight: bold;
+        color: var(--gc-primary-color);
+        display: flex;
+        align-items: center;
+      }
+    
+      .logo img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      } 
+/* Container for the logo*/
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 200px;
+    background-color: var(--gc-logo-background); /* Background color */
+    border-radius: 50%; /* Rounded shape */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Text inside the logo */
+.logo-text {
+    font-family: 'Arial', sans-serif; /* Sans serif font */
+    font-size: 24px;
+    color: var(--logo-text-color); /* Text color */
+    text-align: center;
+    animation: glow 1.5s infinite alternate; /* Glow animation */
+}
+
+/* Glow animation */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px var(--gc-logo-background), 0 0 10px var(--gc-logo-background), 0 0 15px var(--gc-logo-color), 0 0 20px var(--gc-link-color), 0 0 25px var(--gc-link-color), 0 0 30px var(--gc-link-color), 0 0 35px var(--gc-link-color);
+    }
+    to {
+        text-shadow: 0 0 10px var(--gc-secondary-color), 0 0 20px var(--gc-link-color), 0 0 30px var(--gc-link-color), 0 0 40px var(--gc-link-color), 0 0 50px var(--gc-link-color), 0 0 60px var(--gc-link-color), 0 0 70px var(--gc-link-color);
+    }
+}
+
+</style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="logo-container logo">
+      <img src="https://via.placeholder.com/50" alt="Grocery Store Logo">
+      <div class="logo-text">Grocery Store</div>
+    </div>
     <div id="root"></div>
     <!--
       This HTML file is a template.

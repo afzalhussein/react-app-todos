@@ -4,7 +4,7 @@ function List({ items, onDelete }) {
   return (
     <ul>
       {items.map((item) => (
-        <li key={item.id} onClick={() => onDelete(item.id)}>
+        <li title={"Click to delete:"+item.item.toUpperCase()} key={item.id} onClick={() => onDelete(item.id)}>
           {item.item}
         </li>
       ))}
